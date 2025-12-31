@@ -30,8 +30,9 @@ const Home = () => {
 	}, [messages, isThinking]);
 
 	const handleSend = (promptText) => {
-		const textToSend = promptText || inputValue;
-		if (!textToSend.trim()) return;
+		const textToSend = typeof promptText === 'string' ? promptText : inputValue;
+
+		if (!textToSend?.trim()) return;
 
 		// Transition to chat mode
 		setHasStarted(true);
@@ -173,7 +174,7 @@ const Home = () => {
 									</button>
 								)}
 								<button
-									onClick={handleSend}
+									onClick={() => handleSend(inputValue)}
 									className={`flex items-center justify-center rounded-full transition-all duration-200 ${
 										inputValue.trim()
 											? 'bg-black text-white hover:bg-gray-800'
@@ -507,13 +508,15 @@ const CitationChip = ({ data, count }) => (
 const PromptSuggestions = ({ onPromptClick }) => {
 	return (
 		<div className='mt-6 pt-4 border-t border-gray-200'>
-			<h4 className='text-sm font-medium text-gray-500 mb-3'>Try asking:</h4>
+			<h4 className='text-sm font-medium text-gray-500 mb-3 transition-all ease-in-out duration-200'>
+				Try asking:
+			</h4>
 			<div className='flex flex-col gap-2'>
 				{CHAT_DATA.map((item) => (
 					<button
 						key={item.id}
 						onClick={() => onPromptClick(item.prompt)}
-						className='text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 hover:border-gray-300 transition-all duration-200 text-sm text-gray-700 hover:text-gray-900'
+						className='text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 hover:border-gray-300 transition-all ease-in-out duration-200 text-sm text-gray-700 hover:text-gray-900'
 					>
 						{item.prompt}
 					</button>
