@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+body button {
+  cursor: pointer !important;
+}
